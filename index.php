@@ -63,14 +63,18 @@
 	<!-- WORDPRESS LIST POSTS -->
 	<?php  foreach ($posts as $post) : setup_postdata( $post ); ?>
 		<div class="mdl-card on-the-road-again mdl-cell mdl-cell--12-col">
-			<div class="mdl-card__media mdl-color-text--grey-50">
-				<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-			</div>
-			
-			<div class="mdl-color-text--grey-600 mdl-card__supporting-text">
-				<?php the_content(); ?>
-			</div>
+			<?php if (has_post_thumbnail( $post->ID ) ): ?>
+			  	<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); ?>
 
+				<div class="mdl-card__media mdl-color-text--grey-50" style="background-image: url('<?php echo $image[0]; ?>')">
+					<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+				</div>
+			<?php endif; ?>
+
+			<div class="mdl-color-text--grey-600 mdl-card__supporting-text">
+				<?php echo substr(get_the_content(), 0, 200); ?>
+			</div>
+		
 			<div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
 				<?php echo get_avatar( get_the_author_meta('id'), 32 ); ?>
 
@@ -81,42 +85,6 @@
 			</div>
 		</div>
 	<?php endforeach; ?>
-
-	<div class="mdl-card amazing mdl-cell mdl-cell--12-col">
-		<div class="mdl-card__title mdl-color-text--grey-50">
-			<h3 class="quote"><a href="entry.html">I couldn’t take any pictures but this was an amazing thing…</a></h3>
-		</div>
-	
-		<div class="mdl-card__supporting-text mdl-color-text--grey-600">
-			Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-		</div>
-
-		<div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
-			<div class="minilogo"></div>
-			<div>
-				<strong>The Newist</strong>
-				<span>2 days ago</span>
-			</div>
-		</div>
-	</div>
-
-	<div class="mdl-card shopping mdl-cell mdl-cell--12-col">
-		<div class="mdl-card__media mdl-color-text--grey-50">
-			<h3><a href="entry.html">Shopping</a></h3>
-		</div>
-
-		<div class="mdl-card__supporting-text mdl-color-text--grey-600">
-			Enim labore aliqua consequat ut quis ad occaecat aliquip incididunt. Sunt nulla eu enim irure enim nostrud aliqua consectetur ad consectetur sunt ullamco officia. Ex officia laborum et consequat duis.
-		</div>
-
-		<div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
-			<div class="minilogo"></div>
-			<div>
-				<strong>The Newist</strong>
-				<span>2 days ago</span>
-			</div>
-		</div>
-	</div>
 
 	<nav class="demo-nav mdl-cell mdl-cell--12-col">
 		<div class="section-spacer"></div>
